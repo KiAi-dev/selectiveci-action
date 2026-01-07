@@ -152,7 +152,7 @@ Inside **any existing CI workflow** (filename does NOT matter):
 ```yaml
 - name: SelectiveCI Decision
   id: sc
-  uses: KiAi-dev/selective-ci/.github/actions/selectiveci@v1.0.0
+  uses: KiAi-dev/selectiveci-action@v1
   with:
     config-path: .selectiveci.yml
 ```
