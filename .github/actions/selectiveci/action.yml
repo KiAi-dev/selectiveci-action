@@ -1,0 +1,23 @@
+name: "SelectiveCI"
+description: "Safety-first CI optimization using selective test execution"
+author: "SelectiveCI"
+
+inputs:
+  config-path:
+    description: "Path to SelectiveCI config file"
+    default: ".selectiveci.yml"
+    required: false
+
+outputs:
+  mode:
+    description: "Execution mode (selective | dry-run | full)"
+  confidence:
+    description: "Confidence score"
+  run-groups:
+    description: "Test groups to run"
+  skip-groups:
+    description: "Test groups to skip"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
