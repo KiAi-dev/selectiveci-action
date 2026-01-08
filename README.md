@@ -1,129 +1,88 @@
-# 🚦 SelectiveCI
+# SelectiveCI
 
-# selectiveci-action 
-GitHub Action wrapper for SelectiveCI — decision layer for safer, faster, cheaper CI.
+selectiveci-action
 
-<p align="center">
-  <b>Run only what matters. Skip the rest.</b>
-</p>
+SelectiveCI is a GitHub Action that adds a **decision layer** in front of your CI.
 
-SelectiveCI is a **CI decision engine** for pull requests.
+It decides **whether CI should run**, and **what area is impacted**, based on
+changed files in a pull request.
 
-It analyzes the files changed in a PR and decides **how CI should run**:
-- **skip** → safely skip CI (docs-only changes)
-- **selective** → run CI only for impacted parts
-- **full** → enforce full CI for risky changes
-
-SelectiveCI **does not replace your CI**.  
-It adds a **decision layer before CI execution**.
+SelectiveCI does not run tests.
+It does not replace your CI.
+It only decides **mode and targets**.
 
 ---
 
-## What Problem Does SelectiveCI Solve?
+WHAT PROBLEM DOES IT SOLVE
 
 CI pipelines waste time and money when:
-- Documentation-only PRs still trigger full CI
-- Monorepos run every job for small changes
+
+- Docs-only PRs trigger full CI
+- Monorepos run everything for small changes
 - Risky paths (infra, workflows, security) are not treated differently
 
 SelectiveCI prevents unnecessary CI runs while remaining **safe by default**.
 
 ---
 
-## What SelectiveCI Is (and Is Not)
+CORE IDEA
 
-### ✅ SelectiveCI IS
-- A **GitHub Action**
-- A **decision engine**
-- Language-agnostic (Python, Java, Node, Go, etc.)
-- CI-tool-agnostic
+SelectiveCI works in three concepts:
 
-### ❌ SelectiveCI IS NOT
-- A test runner
-- A CI pipeline template
-- A framework you must adopt
+1. **Areas**
+2. **Policies**
+3. **Mode (decision)**
 
-> You keep your existing CI.  
-> SelectiveCI only tells it **when** and **what** to run.
+You configure **areas and safety rules**.
+SelectiveCI evaluates the PR and outputs a **mode**.
 
 ---
 
-## How SelectiveCI Works
+DECISION MODES
 
-```
-Pull Request
-     ↓
-SelectiveCI analyzes changed files
-     ↓
-Decision:
-  • skip
-  • selective
-  • full
-     ↓
-Your existing CI runs accordingly
-```
+SelectiveCI produces exactly one of these modes:
 
----
+- skip  
+  CI can be safely skipped (for example: docs-only changes)
 
-## Outputs (Stable v1 Contract)
+- selective  
+  CI should run only for specific impacted areas
 
-SelectiveCI exposes deterministic outputs:
+- full  
+  CI must run fully due to risk or uncertainty
 
-| Output | Description |
-|------|------------|
-| `selectiveci_mode` | `skip` \| `selective` \| `full` |
-| `selectiveci_targets` | Impacted folders / services |
-| `selectiveci_reasons` | Reason codes for the decision |
-| `selectiveci_risk` | `low` \| `medium` \| `high` |
-| `selectiveci_fallback` | Whether safety fallback was used |
-
-These outputs are consumed by **your CI**, not executed by SelectiveCI.
+Mode is an **output**, not a configuration.
 
 ---
 
-## Example Decisions
+HOW IT WORKS
 
-### Docs-only PR
-- mode: `skip`
-- risk: `low`
-- CI is skipped safely
-
-### Single service change
-- mode: `selective`
-- targets: `services/api`
-- Only relevant CI runs
-
-### Workflow / infra / security change
-- mode: `full`
-- targets: `all`
-- Full CI enforced automatically
+Pull Request  
+↓  
+SelectiveCI analyzes changed files  
+↓  
+Policies are applied  
+↓  
+Decision is produced  
+↓  
+Your existing CI uses that decision
 
 ---
 
-## Integration Overview (IMPORTANT)
+CONFIGURATION (.selectiveci.yml)
 
-SelectiveCI **does not require you to copy a CI workflow**.
+Create a file named `.selectiveci.yml` in your repository.
 
-You only do **two things**:
+Example:
 
-1. Add a configuration file  
-2. Call SelectiveCI from **your existing CI workflow**
-
----
-
-## Step 1: Add Configuration
-
-Create `.selectiveci.yml` in your repo:
-
-```yaml
 version: "1.1"
 
 workspaces:
   roots:
-    - "src/**"
-    - "packages/**"
+    - "services/**"
     - "docs/**"
-  strategy: "folder-1"
+    - "README.md"
+  strategy: "folder-2"
 
 safety:
   force_full_paths:
@@ -136,94 +95,110 @@ docs:
     - "README.md"
     - "docs/**"
     - "**/*.md"
-```
 
-This file defines:
-- What counts as docs-only
-- Which paths are risky
-- How targets are derived
+WHAT THIS CONFIG MEANS
+
+- Changes only in docs → CI is skipped
+- Changes inside defined workspaces → selective mode
+- Changes in safety paths → full CI enforced
+- Anything unclear → safe fallback to full CI
 
 ---
 
-## Step 2: Plug SelectiveCI into Your Existing CI
+USING SELECTIVECI IN YOUR CI
 
-Inside **any existing CI workflow** (filename does NOT matter):
+Add this step to any existing workflow:
 
-```yaml
 - name: SelectiveCI Decision
   id: sc
   uses: KiAi-dev/selectiveci-action@v1
   with:
     config-path: .selectiveci.yml
-```
 
-That’s the **only place** your repo is referenced.
-
----
-
-## Step 3: Gate Your CI (One Line)
-
-Wherever your CI runs:
-
-```yaml
-if: needs.selectiveci.outputs.selectiveci_mode != 'skip'
-```
-
-Nothing else changes.
+That is the only place SelectiveCI is referenced.
 
 ---
 
-## Optional: Target-aware CI (Advanced)
+USING THE DECISION
 
-If you want selective execution:
-- Read `selectiveci_targets`
-- Decide how to map targets to commands
+Gate your CI using the decision:
 
-This is optional and language-specific.
+if: needs.selectiveci.outputs.mode != 'skip'
 
----
-
-## Supported Languages
-
-SelectiveCI works with:
-- Python
-- Java
-- Node.js
-- Go
-- Monorepos & polyrepos
-
-Because it **only makes decisions**, not executions.
+You may optionally use targets for selective execution.
 
 ---
 
-## Why Enterprises Use SelectiveCI
+OUTPUTS (PHASE-1 CONTRACT)
 
-- 💸 Reduced CI cost
-- ⚡ Faster PR feedback
-- 🔒 Safe-by-default escalation
-- 🧠 Deterministic decisions
-- 🧩 Fits existing pipelines
+SelectiveCI exposes these stable outputs:
+
+- mode  
+  skip | selective | full
+
+- targets  
+  Comma-separated impacted areas
+
+- targets_json  
+  JSON array of impacted areas
+
+- reasons  
+  JSON array of reason codes
+
+- fallback  
+  true | false (whether safety fallback was used)
+
+These outputs are deterministic and safe to consume.
 
 ---
 
-## Design Principles
+EXAMPLES
 
-- Deterministic (no magic)
-- Safe escalation
+Docs-only change:
+
+mode: skip  
+targets:  
+fallback: false  
+
+Single service change:
+
+mode: selective  
+targets: services/api  
+
+Workflow or infra change:
+
+mode: full  
+targets: all  
+
+---
+
+IMPORTANT NOTES
+
+- SelectiveCI does not enforce how you run tests
+- Mapping targets to commands is intentionally left to you
+- This keeps SelectiveCI language-agnostic and CI-tool-agnostic
+
+---
+
+DESIGN PRINCIPLES
+
+- Deterministic decisions
+- Safe-by-default escalation
 - Transparent reasoning
-- Language-agnostic
-- CI-tool-agnostic
+- Zero coupling to test frameworks
 
 ---
 
-## Summary
+SUMMARY
 
-> **SelectiveCI is the missing decision layer in modern CI pipelines.**
+You already have CI.
 
-You already have CI.  
-SelectiveCI just makes it smarter.
+SelectiveCI simply decides **when it should run**,  
+**what it should run for**,  
+and **when to stay out of the way**.
 
 ---
 
-## License
+LICENSE
+
 MIT © SelectiveCI
