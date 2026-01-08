@@ -1,0 +1,60 @@
+<svg width="900" height="520" viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .box {
+      fill: #5fb7b2;
+      rx: 16;
+      ry: 16;
+    }
+    .text {
+      font-family: Inter, Arial, sans-serif;
+      fill: #ffffff;
+      font-size: 20px;
+      font-weight: 600;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+    .arrow {
+      stroke: #f2b705;
+      stroke-width: 4;
+      fill: none;
+      marker-end: url(#arrowhead);
+    }
+    .title {
+      font-size: 28px;
+      fill: #1f2a44;
+      font-weight: 700;
+    }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7"
+            refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f2b705"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="40" class="title">How SelectiveCI Works</text>
+
+  <!-- Boxes -->
+  <rect x="250" y="80" width="400" height="64" class="box"/>
+  <text x="450" y="112" class="text">Pull Request</text>
+
+  <rect x="250" y="170" width="400" height="64" class="box"/>
+  <text x="450" y="202" class="text">SelectiveCI analyzes changed files</text>
+
+  <rect x="250" y="260" width="400" height="64" class="box"/>
+  <text x="450" y="292" class="text">Policies are applied</text>
+
+  <rect x="250" y="350" width="400" height="64" class="box"/>
+  <text x="450" y="382" class="text">Decision: skip · selective · full</text>
+
+  <rect x="250" y="440" width="400" height="64" class="box"/>
+  <text x="450" y="472" class="text">Your existing CI consumes the decision</text>
+
+  <!-- Arrows -->
+  <line x1="450" y1="144" x2="450" y2="170" class="arrow"/>
+  <line x1="450" y1="234" x2="450" y2="260" class="arrow"/>
+  <line x1="450" y1="324" x2="450" y2="350" class="arrow"/>
+  <line x1="450" y1="414" x2="450" y2="440" class="arrow"/>
+</svg>
