@@ -247,8 +247,7 @@ Note: SelectiveCI computes an internal risk level (`low`, `medium`, `high`) to g
 
 SelectiveCI is the **missing decision layer** in modern CI pipelines.
 
-You already have CI.  
-SelectiveCI just makes it smarter.
+You already have CI.  SelectiveCI just makes it smarter.
 
 
 ## LICENSE
