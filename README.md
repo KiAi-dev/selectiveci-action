@@ -116,7 +116,7 @@ Your CI workflow is responsible for executing jobs based on this decision.
 ## Minimum Required Configuration
 
 You must define at least one area under areas:.
-If no areas match a PR change, SelectiveCI defaults to full for safety.
+If no areas match a PR change, SelectiveCI defaults to `full` to preserve safety.
 
 ---
 
@@ -200,11 +200,14 @@ These are intended for debugging, auditability, and CI visibility.
 --- 
 ## Pattern Support
 
-For safety and predictability, SelectiveCI supports these path pattern forms:
+For safety and predictability, SelectiveCI supports **only** the following path pattern forms:
 
 - Exact file match (example: `README.md`)
 - Directory prefix match (example: `docs/**`)
 - File extension match (example: `**/*.md`)
+
+Other glob patterns are intentionally unsupported to keep decisions deterministic.
+
 
 ## Safety and Security
 
@@ -215,6 +218,7 @@ SelectiveCI is designed to be safe by default.
 - High-risk areas can be explicitly enforced as `full`
 
 This ensures SelectiveCI never weakens CI guarantees.
+Note: SelectiveCI computes an internal risk level (`low`, `medium`, `high`) to guide safe escalation, but this value is not currently exposed as an output.
 
 ## Design Principles
 
