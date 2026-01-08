@@ -1,8 +1,8 @@
 <p align="center">
   <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="420"/>
-  Run only what matters. Skip the rest.
+ 
 </p>
-
+<p align="center"> Run only what matters. Skip the rest.</p>
 <p align="center">
   <img src="https://img.shields.io/github/actions/workflow/status/KiAi-dev/selectiveci-action/ci.yml" />
   <img src="https://img.shields.io/github/license/KiAi-dev/selectiveci-action" />
