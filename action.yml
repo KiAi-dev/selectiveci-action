@@ -1,0 +1,35 @@
+name: "SelectiveCI"
+description: "Safety-first CI optimization using selective execution"
+author: "SelectiveCI"
+
+inputs:
+  config-path:
+    description: "Path to SelectiveCI config file"
+    default: ".selectiveci.yml"
+    required: false
+
+# Backward compatible outputs (keep for now)
+outputs:
+  # ✅ Primary outputs (Phase 1 contract)
+  mode:
+    description: "Final CI mode: skip|selective|full"
+  targets:
+    description: "Comma-separated impacted areas (only meaningful when mode=selective)"
+  targets_json:
+    description: "JSON array string of impacted areas"
+  reasons:
+    description: "JSON array string of reason codes"
+  fallback:
+    description: "Whether fallback to FULL was used (true|false)"
+
+  # 🧩 Compatibility outputs (keep for now, but do NOT document)
+  confidence:
+    description: "Legacy confidence score (compat)"
+  run-groups:
+    description: "Legacy groups to run (compat)"
+  skip-groups:
+    description: "Legacy groups to skip (compat)"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
