@@ -71,12 +71,6 @@ Your existing CI consumes that decision
 
 ## Configuration (`.selectiveci.yml`)
 
-> ⚠️ **Important**
->
-> SelectiveCI currently supports **only the `areas` configuration model**.
-> Other CI configuration styles (such as workspaces, critical paths, or docs-only rules)
-> are **not supported** by this action.
-
 Create a file named `.selectiveci.yml` in your repository.
 
 SelectiveCI uses an **areas + policy** configuration model.
