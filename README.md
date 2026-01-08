@@ -226,5 +226,4 @@ SelectiveCI just makes it smarter.
 ---
 
 ## License
-
-MIT (or your chosen license)
+MIT © SelectiveCI
