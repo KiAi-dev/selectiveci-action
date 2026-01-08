@@ -74,10 +74,12 @@ Your existing CI consumes that decision
 Create a file named `.selectiveci.yml` in your repository.
 
 SelectiveCI uses an **areas + policy** configuration model.
+Each area represents a logical ownership or risk boundary (for example: docs, services, CI/security).
 
 - You define **areas** (named groups of paths)
 - Each area has a **policy** (`skip`, `selective`, or `full`)
 - SelectiveCI detects which areas are impacted by the PR and decides the final mode
+
 
 ### Example
 
@@ -113,10 +115,21 @@ It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
 
+
 ## Minimum Required Configuration
 
 You must define at least one area under areas:.
 If no areas match a PR change, SelectiveCI defaults to `full` to preserve safety.
+
+
+### What SelectiveCI Does NOT Use
+SelectiveCI intentionally ignores:
+- CI commands
+- Test definitions
+- Job graphs
+- Build steps
+
+The configuration defines **decision intent only**, not execution.
 
 ---
 
@@ -137,8 +150,8 @@ If multiple areas are impacted in a single PR, policies are resolved safely:
 - otherwise, the decision is `selective`
   
 Notes:
-- `targets` are the impacted **area names**
-- `targets` are only meaningful when `mode=selective`
+- `targets` are the **area names** (keys under `areas:`), not file paths
+- Your CI is responsible for mapping area names to commands or jobs
 
 
 ## Using SelectiveCI in Your CI
