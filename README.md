@@ -65,7 +65,7 @@ SelectiveCI only tells it **when** and **what** to run.
 
 
 <p align="center">
-  <img src="./assets/how_it_works.svg"/>
+  <img src="./assets/how_it_work.png" width="35%" height="30%"/>
 </p>
 
 ---
