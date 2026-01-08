@@ -18,7 +18,8 @@ It analyzes the files changed in a PR and decides **how CI should run**:
 - `selective` – run CI only for impacted areas
 - `full` – enforce full CI for risky or unclear changes
 
-SelectiveCI **does not replace your CI**.  
+SelectiveCI **does not replace your CI**. 
+
 It adds a **decision layer before CI execution**.
 
 ---
@@ -49,6 +50,7 @@ SelectiveCI prevents unnecessary CI runs while remaining **safe by default**.
 - A framework you must adopt
 
 You keep your existing CI.  
+
 SelectiveCI only tells it **when** and **what** to run.
 
 ---
@@ -106,11 +108,12 @@ areas:
 Note: A policy expresses **intent**, not execution.
 
 SelectiveCI does not run tests.
+
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
 
-## Minimum required config
+## Minimum Required Configuration
 
 You must define at least one area under areas:.
 If no areas match a PR change, SelectiveCI defaults to full for safety.
@@ -126,6 +129,12 @@ SelectiveCI evaluates impacted areas using these rules:
 - If all impacted areas have policy `skip`, the decision is `skip`.
 - Otherwise, the decision is `selective`.
 
+If multiple areas are impacted in a single PR, policies are resolved safely:
+
+- `full` overrides all other policies
+- `skip` applies only when *all* impacted areas are `skip`
+- otherwise, the decision is `selective`
+  
 Notes:
 - `targets` are the impacted **area names**
 - `targets` are only meaningful when `mode=selective`
@@ -167,6 +176,8 @@ SelectiveCI exposes deterministic outputs:
 
 - `reasons`
   JSON array of reason codes for the decision
+  (e.g. documentation-only change, policy-enforced full run, diff fallback).
+  They are intended for debugging, auditability, and CI visibility.
 
 - `fallback`
   `true` or `false` (safe fallback used, e.g. diff failure)
@@ -180,6 +191,15 @@ For safety and predictability, SelectiveCI supports these path pattern forms:
 - Directory prefix match (example: `docs/**`)
 - File extension match (example: `**/*.md`)
 
+## Safety and Security
+
+SelectiveCI is designed to be safe by default.
+
+- Any uncertainty results in `full` CI
+- Diff failures automatically trigger fallback
+- High-risk areas can be explicitly enforced as `full`
+
+This ensures SelectiveCI never weakens CI guarantees.
 
 ## Design Principles
 
