@@ -102,6 +102,14 @@ areas:
       - "security/**"
     policy: full
 ```
+
+Note: A policy expresses **intent**, not execution.
+
+SelectiveCI does not run tests.
+It only decides the CI mode and reports impacted areas.
+Your CI workflow is responsible for executing jobs based on this decision.
+
+
 ## Minimum required config
 
 You must define at least one area under areas:.
