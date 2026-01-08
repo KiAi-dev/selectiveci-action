@@ -63,17 +63,10 @@ SelectiveCI only tells it **when** and **what** to run.
 
 ---
 
-## How It Works
 
-Pull Request  
-↓  
-SelectiveCI analyzes changed files  
-↓  
-Policies are applied  
-↓  
-Decision is produced (`skip` | `selective` | `full`)  
-↓  
-Your existing CI consumes that decision
+<p align="center">
+  <img src="./assets/how_it_work.png" />
+</p>
 
 ---
 
