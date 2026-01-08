@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="420" height="20" />
+  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="420"/>
   Run only what matters. Skip the rest.
 </p>
 
