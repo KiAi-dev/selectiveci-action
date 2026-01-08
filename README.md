@@ -117,6 +117,7 @@ Your CI workflow is responsible for executing jobs based on this decision.
 
 You must define at least one area under areas:.
 If no areas match a PR change, SelectiveCI defaults to full for safety.
+
 ---
 
 
@@ -183,6 +184,20 @@ SelectiveCI exposes deterministic outputs:
   `true` or `false` (safe fallback used, e.g. diff failure)
 
 ---
+
+### Reason Codes
+
+SelectiveCI emits machine-readable reason codes:
+
+- `DOCS_ONLY` – only documentation files changed
+- `CODE_CHANGE` – code areas impacted
+- `POLICY_FORCE_FULL` – an area explicitly enforces full CI
+- `UNKNOWN_FILE_TYPE` – files did not match any configured area
+- `DIFF_FAIL` – git diff failed (safe fallback)
+
+These are intended for debugging, auditability, and CI visibility.
+
+--- 
 ## Pattern Support
 
 For safety and predictability, SelectiveCI supports these path pattern forms:
