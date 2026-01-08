@@ -1,17 +1,18 @@
 <p align="center">
-  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="420"/>
-
+  <img src="./assets/logo-light.png" alt="SelectiveCI logo"/>
 </p>
+
+<p align="center"><strong>Run only what matters. Skip the rest.</strong></p>
+
 <p align="center">
-  <img src="https://img.shields.io/github/actions/workflow/status/KiAi-dev/selectiveci-action/ci.yml" />
-  <img src="https://img.shields.io/github/license/KiAi-dev/selectiveci-action" />
+  <img src="https://img.shields.io/badge/license-MIT-green" />
 </p>
 
-**selectiveci-action**
+---
+
+## selectiveci-action
 
 GitHub Action wrapper for **SelectiveCI** — a decision layer for safer, faster, and cheaper CI.
-
-Run only what matters. Skip the rest.
 
 ---
 
