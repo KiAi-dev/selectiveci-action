@@ -1,9 +1,6 @@
 <p align="center">
   <img src="./assets/selectiveci-logo.png" alt="SelectiveCI logo" width="420" />
 </p>
-
-<h1 align="center">SelectiveCI</h1>
-
 <p align="center">
   Run only what matters. Skip the rest.
 </p>
