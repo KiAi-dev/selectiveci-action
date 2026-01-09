@@ -177,7 +177,7 @@ Add this step to **any existing workflow**:
 ```yaml
 - name: SelectiveCI Decision
   id: sc
-  uses: KiAi-dev/selectiveci-action@v1
+  uses: KiAi-dev/selectiveci-action@v1.1
   with:
     config-path: .selectiveci.yml
 ```
