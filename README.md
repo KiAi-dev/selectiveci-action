@@ -94,6 +94,7 @@ Each area represents a logical ownership or risk boundary (for example: docs, se
 ### Example
 
 ```yaml
+version: 1.1
 areas:
   docs:
     paths: ["README.md", "docs/**", "**/*.md"]
