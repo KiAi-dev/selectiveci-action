@@ -115,20 +115,42 @@ SelectiveCI does not run tests.
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
-## Verified Examples with reference outcome
-<h4>Decision: Skip</h4>
-<p align="center">
-  <img src="./assets/skip.png" alt="SelectiveCI Skip mode" width="50%" height="50%"/>
-</p>
-<h4>Decision: Selective</h4>
-<p align="center">
-  <img src="./assets/selective.png" alt="SelectiveCI Selective mode" width="50%" height="50%"/>
-</p>
+## Verified Examples (Real GitHub Actions Runs)
 
-<h4>Decision: Full</h4>
-<p align="center">
-  <img src="./assets/full.png" alt="SelectiveCI Full mode" width="50%" height="50%"/>
-</p>
+### Decision: Skip (Documentation-only change)
+
+**Change summary**
+- README.md updated
+
+**Outcome**
+- CI skipped safely
+- Reason: DOCS_ONLY
+
+![Screenshot: Skip Decision](./assets/skip.png)
+
+### Decision: Selective (Scoped code change)
+
+**Change summary**
+- services/api/app.py modified
+
+**Outcome**
+- Only impacted CI groups executed
+- Reason: CODE_CHANGE
+
+![Screenshot: Selective Decision](./assets/selective.png)
+
+
+### Decision: Full (Critical path touched)
+
+**Change summary**
+- .github/workflows/ci-selective.yml modified
+
+**Outcome**
+- Full CI enforced for safety
+- Reason: POLICY_FORCE_FULL
+
+![Screenshot: Full Decision](./assets/full.png)
+
 
 ## Minimum Required Configuration
 
