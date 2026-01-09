@@ -1,4 +1,4 @@
-name: "SelectiveCI"
+name: "SelectiveCI Decision Engine"
 description: "Safety-first CI optimization using selective execution"
 author: "KiAi-dev"
 branding:
