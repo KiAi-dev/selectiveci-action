@@ -29990,15 +29990,25 @@ function readYamlConfig(path) {
 }
 /**
  * Minimal glob matcher (predictable & safe)
+ * Supported patterns:
+ * - Exact file: README.md
+ * - Directory prefix: docs/**
+ * - Extension match: **
  */
+function normalizePath(p) {
+    return p.split("\\").join("/");
+}
 function matchesPattern(file, pattern) {
-    const f = file.replace(/\\/g, "/");
-    const p = pattern.replace(/\\/g, "/");
+    const f = normalizePath(file);
+    const p = normalizePath(pattern);
+    // Exact match
     if (p === f)
         return true;
+    // **/*.ext
     if (p.startsWith("**/*.")) {
         return f.endsWith(p.slice(4));
     }
+    // dir/**
     if (p.endsWith("/**")) {
         const base = p.slice(0, -3);
         return f === base || f.startsWith(base + "/");
@@ -30011,7 +30021,7 @@ function matchesPattern(file, pattern) {
 function getChangedFiles() {
     const splitLines = (out) => out
         .split("\n")
-        .map(s => s.trim())
+        .map((s) => s.trim())
         .filter(Boolean);
     try {
         const eventName = process.env.GITHUB_EVENT_NAME || "";
@@ -30060,31 +30070,85 @@ function getChangedFiles() {
     }
 }
 /* ============================================================
- * Area Matching
+ * Area Matching (for MODE decision)
  * ============================================================ */
 function computeImpactedAreas(files, areas) {
     const impacted = new Set();
     for (const file of files) {
         for (const [areaName, area] of Object.entries(areas)) {
-            if (area.paths.some(p => matchesPattern(file, p))) {
+            if (area.paths.some((p) => matchesPattern(file, p))) {
                 impacted.add(areaName);
             }
         }
     }
     return Array.from(impacted).sort();
 }
-function decideMode(impacted, areas) {
+/* ============================================================
+ * Targets (for mode=selective only)
+ * - only includes areas with policy=selective
+ * - prefers more specific areas over broad ones
+ * ============================================================ */
+function patternSpecificityScore(pattern) {
+    const p = pattern.replace(/\\/g, "/");
+    const segments = p.split("/").filter(Boolean).length;
+    const wildcardCount = p.split("*").length - 1;
+    const doubleStarCount = p.split("**").length - 1;
+    return (segments * 100 -
+        doubleStarCount * 50 -
+        wildcardCount * 10 +
+        p.length);
+}
+function computeTargetsForSelective(files, areas) {
+    // file -> set(selective areas matched)
+    const fileMatches = new Map();
+    for (const file of files) {
+        const matches = new Set();
+        for (const [areaName, area] of Object.entries(areas)) {
+            if (area.policy !== "selective")
+                continue; // IMPORTANT
+            if (area.paths.some((p) => matchesPattern(file, p))) {
+                matches.add(areaName);
+            }
+        }
+        if (matches.size > 0) {
+            fileMatches.set(file, matches);
+        }
+    }
+    // Choose best targets per file by specificity
+    const chosen = new Set();
+    for (const [file, selectiveAreas] of fileMatches.entries()) {
+        const scored = [];
+        for (const areaName of selectiveAreas) {
+            const area = areas[areaName];
+            const matchingPatterns = area.paths.filter((p) => matchesPattern(file, p));
+            const bestScore = matchingPatterns.length > 0
+                ? Math.max(...matchingPatterns.map(patternSpecificityScore))
+                : -Infinity;
+            scored.push({ areaName, score: bestScore });
+        }
+        const top = Math.max(...scored.map((s) => s.score));
+        for (const s of scored) {
+            if (s.score === top)
+                chosen.add(s.areaName);
+        }
+    }
+    return Array.from(chosen).sort();
+}
+/* ============================================================
+ * Decision
+ * ============================================================ */
+function decideMode(impactedAreas, areas) {
     const reasons = [];
-    if (impacted.length === 0) {
+    if (impactedAreas.length === 0) {
         reasons.push("UNKNOWN_FILE_TYPE");
         return { mode: "full", reasons };
     }
-    const policies = impacted.map(a => areas[a]?.policy);
+    const policies = impactedAreas.map((a) => areas[a]?.policy);
     if (policies.includes("full")) {
         reasons.push("POLICY_FORCE_FULL");
         return { mode: "full", reasons };
     }
-    if (policies.every(p => p === "skip")) {
+    if (policies.every((p) => p === "skip")) {
         reasons.push("DOCS_ONLY");
         return { mode: "skip", reasons };
     }
@@ -30124,15 +30188,20 @@ async function main() {
         targets = [];
     }
     else {
-        targets = computeImpactedAreas(files, areas);
-        const decision = decideMode(targets, areas);
+        // 1) impacted areas (for safe decision)
+        const impactedAreas = computeImpactedAreas(files, areas);
+        // 2) decide mode
+        const decision = decideMode(impactedAreas, areas);
         mode = decision.mode;
         reasons.push(...decision.reasons);
+        // 3) compute targets ONLY for selective mode
+        targets =
+            mode === "selective" ? computeTargetsForSelective(files, areas) : [];
     }
     const decision = {
         decision_id: decisionId(),
         mode,
-        targets: mode === "selective" ? targets : [],
+        targets,
         reason_codes: reasons,
         fallback_used: fallbackUsed,
         risk_level: computeRisk(reasons),
@@ -30157,7 +30226,7 @@ async function main() {
         .addCodeBlock(JSON.stringify(decision, null, 2), "json")
         .write();
 }
-main().catch(err => core.setFailed(String(err)));
+main().catch((err) => core.setFailed(String(err)));
 
 
 /***/ }),
