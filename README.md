@@ -116,22 +116,19 @@ It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
 ## Verified Example
+<h4>Skip</h4>
+<p align="center">
+  <img src="./assets/skip.png" alt="SelectiveCI Skip mode" width="50%" height="50%"/>
+</p>
+<h4>Selective</h4>
+<p align="center">
+  <img src="./assets/selective.png" alt="SelectiveCI Selective mode" width="50%" height="50%"/>
+</p>
 
-A pull request that only changes documentation files:
-
-- `README.md`
-- `docs/**`
-- `**/*.md`
-
-Produces the following decision:
-
-```json
-{
-  "mode": "skip",
-  "reasons": ["DOCS_ONLY"],
-  "fallback": false
-}
-``` 
+<h4>Selective</h4>
+<p align="center">
+  <img src="./assets/full.png" alt="SelectiveCI Full mode" width="50%" height="50%"/>
+</p>
 
 ## Minimum Required Configuration
 
