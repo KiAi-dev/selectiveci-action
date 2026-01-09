@@ -65,7 +65,7 @@ SelectiveCI only tells it **when** and **what** to run.
 
 
 <p align="center">
-  <img src="./assets/how_it_work.png" width="25%" height="25%" />
+  <img src="./assets/how_it_work.png" width="35%" height="30%"/>
 </p>
 
 ---
@@ -115,7 +115,23 @@ SelectiveCI does not run tests.
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
+## Verified Example
 
+A pull request that only changes documentation files:
+
+- `README.md`
+- `docs/**`
+- `**/*.md`
+
+Produces the following decision:
+
+```json
+{
+  "mode": "skip",
+  "reasons": ["DOCS_ONLY"],
+  "fallback": false
+}
+``` 
 
 ## Minimum Required Configuration
 
@@ -161,7 +177,7 @@ Add this step to **any existing workflow**:
 ```yaml
 - name: SelectiveCI Decision
   id: sc
-  uses: KiAi-dev/selectiveci-action@v1
+  uses: KiAi-dev/selectiveci-action@v1.1
   with:
     config-path: .selectiveci.yml
 ```
@@ -247,8 +263,7 @@ Note: SelectiveCI computes an internal risk level (`low`, `medium`, `high`) to g
 
 SelectiveCI is the **missing decision layer** in modern CI pipelines.
 
-You already have CI.  
-SelectiveCI just makes it smarter.
+You already have CI.  SelectiveCI just makes it smarter.
 
 
 ## LICENSE
