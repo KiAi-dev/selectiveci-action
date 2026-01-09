@@ -131,7 +131,7 @@ Produces the following decision:
   "reasons": ["DOCS_ONLY"],
   "fallback": false
 }
-
+``` 
 
 ## Minimum Required Configuration
 
