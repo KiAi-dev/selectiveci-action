@@ -2,7 +2,7 @@
   <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="50%" height="50%"/>
 </p>
 
-<p align="center"><strong>Run only what matters. Skip the rest.</strong></p>
+<p align="center"><strong>Run only what matters. Skip the rest.</strong>A safety-first CI decision engine for GitHub Actions.</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-green" />
@@ -14,6 +14,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/KiAi-dev/selectiveci-action?label=release)](https://github.com/KiAi-dev/selectiveci-action/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/KiAi-dev/selectiveci-action?style=social)](https://github.com/KiAi-dev/selectiveci-action/stargazers)
+> ✅ Official GitHub Marketplace Action — production-ready and versioned.
 
 ---
 
