@@ -115,7 +115,7 @@ SelectiveCI does not run tests.
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
-## Verified Example
+## Verified Examples with reference outcome
 <h4>Decision: Skip</h4>
 <p align="center">
   <img src="./assets/skip.png" alt="SelectiveCI Skip mode" width="50%" height="50%"/>
