@@ -1,15 +1,10 @@
-<p align="center">
-  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="50%" height="50%"/>
-</p>
-
-<p align="center"><strong>Run only what matters. Skip the rest. | A safety-first CI decision engine for GitHub Actions.</strong>
-</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-green" />
+  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="25%" height="20%"/>
 </p>
 
-# SelectiveCI Decision Engine
+# SelectiveCI – Decision Engine 
+## A decision layer before CI runs 
 
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-SelectiveCI-blue?logo=github)](https://github.com/marketplace/actions/selectiveci-decision-engine)
 [![Latest Release](https://img.shields.io/github/v/release/KiAi-dev/selectiveci-action?label=release)](https://github.com/KiAi-dev/selectiveci-action/releases)
@@ -17,13 +12,9 @@
 [![GitHub Stars](https://img.shields.io/github/stars/KiAi-dev/selectiveci-action?style=social)](https://github.com/KiAi-dev/selectiveci-action/stargazers)
 > ✅ Official GitHub Marketplace Action — production-ready and versioned.
 
----
-
 ## selectiveci-action
 
-GitHub Action wrapper for **SelectiveCI** — a decision layer for safer, faster, and cheaper CI.
-
----
+GitHub Action that determines how CI should run based on the files changed in a pull request.
 
 ## What Is SelectiveCI?
 
