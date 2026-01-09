@@ -115,6 +115,22 @@ SelectiveCI does not run tests.
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
+## Verified Example
+
+A pull request that only changes documentation files:
+
+- `README.md`
+- `docs/**`
+- `**/*.md`
+
+Produces the following decision:
+
+```json
+{
+  "mode": "skip",
+  "reasons": ["DOCS_ONLY"],
+  "fallback": false
+}
 
 
 ## Minimum Required Configuration
