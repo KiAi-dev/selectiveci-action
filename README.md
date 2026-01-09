@@ -8,6 +8,13 @@
   <img src="https://img.shields.io/badge/license-MIT-green" />
 </p>
 
+# SelectiveCI Decision Engine
+
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-SelectiveCI-blue?logo=github)](https://github.com/marketplace/actions/selectiveci-decision-engine)
+[![Latest Release](https://img.shields.io/github/v/release/KiAi-dev/selectiveci-action?label=release)](https://github.com/KiAi-dev/selectiveci-action/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/KiAi-dev/selectiveci-action?style=social)](https://github.com/KiAi-dev/selectiveci-action/stargazers)
+
 ---
 
 ## selectiveci-action
