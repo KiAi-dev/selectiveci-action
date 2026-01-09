@@ -94,27 +94,26 @@ Each area represents a logical ownership or risk boundary (for example: docs, se
 ### Example
 
 ```yaml
-version: 1
-
 areas:
   docs:
-    paths:
-      - "README.md"
-      - "docs/**"
-      - "**/*.md"
+    paths: ["README.md", "docs/**", "**/*.md"]
     policy: skip
 
-  services:
-    paths:
-      - "services/**"
+  services_api:
+    paths: ["services/api/**"]
+    policy: selective
+
+  services_payments:
+    paths: ["services/payments/**"]
     policy: selective
 
   ci_security:
-    paths:
-      - ".github/**"
-      - "infra/**"
-      - "security/**"
+    paths: [".github/**", "infra/**", "security/**"]
     policy: full
+
+  services_other:
+    paths: ["services/**"]
+    policy: selective
 ```
 
 Note: A policy expresses **intent**, not execution.
