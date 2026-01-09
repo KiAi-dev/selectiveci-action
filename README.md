@@ -1,9 +1,5 @@
 
-<p align="center">
-  <img src="./assets/selective-ci-logo.png" alt="SelectiveCI logo" width="25%" height="20%"/>
-</p>
-
-# SelectiveCI – Decision Engine 
+# <img src="./assets/slogo.png" alt="SelectiveCI logo" width="5%" height="5%"/> SelectiveCI – Decision Engine 
 ## A decision layer before CI runs 
 
 [![GitHub Marketplace](https://img.shields.io/badge/Marketplace-SelectiveCI-blue?logo=github)](https://github.com/marketplace/actions/selectiveci-decision-engine)
@@ -12,11 +8,11 @@
 [![GitHub Stars](https://img.shields.io/github/stars/KiAi-dev/selectiveci-action?style=social)](https://github.com/KiAi-dev/selectiveci-action/stargazers)
 > ✅ Official GitHub Marketplace Action — production-ready and versioned.
 
-## selectiveci-action
+### selectiveci-action
 
 GitHub Action that determines how CI should run based on the files changed in a pull request.
 
-## What Is SelectiveCI?
+### What Is SelectiveCI?
 
 SelectiveCI is a **CI decision engine** for pull requests.
 
@@ -32,7 +28,7 @@ It adds a **decision layer before CI execution**.
 
 ---
 
-## What Problem Does It Solve?
+### What Problem Does It Solve?
 
 CI pipelines waste time and money when:
 
@@ -44,15 +40,15 @@ SelectiveCI prevents unnecessary CI runs while remaining **safe by default**.
 
 ---
 
-## What SelectiveCI Is (and Is Not)
+### What SelectiveCI Is (and Is Not)
 
-### SelectiveCI IS
+#### SelectiveCI IS
 - A GitHub Action
 - A decision engine
 - Language-agnostic (Python, Java, Node, Go, etc.)
 - CI-tool-agnostic
 
-### SelectiveCI IS NOT
+#### SelectiveCI IS NOT
 - A test runner
 - A CI pipeline template
 - A framework you must adopt
@@ -70,7 +66,7 @@ SelectiveCI only tells it **when** and **what** to run.
 
 ---
 
-## Configuration (`.selectiveci.yml`)
+### Configuration (`.selectiveci.yml`)
 
 Create a file named `.selectiveci.yml` in your repository.
 
@@ -82,7 +78,7 @@ Each area represents a logical ownership or risk boundary (for example: docs, se
 - SelectiveCI detects which areas are impacted by the PR and decides the final mode
 
 
-### Example
+#### Example
 
 ```yaml
 version: 1.1
@@ -115,9 +111,9 @@ SelectiveCI does not run tests.
 It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
-## Verified Examples (Real GitHub Actions Runs)
+### Verified Examples (Real GitHub Actions Runs)
 
-### Decision: Skip (Documentation-only change)
+#### Decision: Skip (Documentation-only change)
 
 **Change summary**
 - README.md updated
@@ -128,7 +124,7 @@ Your CI workflow is responsible for executing jobs based on this decision.
 
 ![Screenshot: Skip Decision](./assets/skip.png)
 
-### Decision: Selective (Scoped code change)
+#### Decision: Selective (Scoped code change)
 
 **Change summary**
 - services/api/app.py modified
@@ -140,7 +136,7 @@ Your CI workflow is responsible for executing jobs based on this decision.
 ![Screenshot: Selective Decision](./assets/selective.png)
 
 
-### Decision: Full (Critical path touched)
+#### Decision: Full (Critical path touched)
 
 **Change summary**
 - .github/workflows/ci-selective.yml modified
@@ -152,12 +148,12 @@ Your CI workflow is responsible for executing jobs based on this decision.
 ![Screenshot: Full Decision](./assets/full.png)
 
 
-## Minimum Required Configuration
+### Minimum Required Configuration
 
 You must define at least one area under `areas`.
 If no area matches a PR change, SelectiveCI **defaults to `full`** to preserve safety.
 
-### What SelectiveCI Does NOT Use
+#### What SelectiveCI Does NOT Use
 SelectiveCI intentionally ignores:
 - CI commands
 - Test definitions
@@ -169,7 +165,7 @@ The configuration defines **decision intent only**, not execution.
 ---
 
 
-## How Decisions Are Made
+### How Decisions Are Made
 
 SelectiveCI evaluates impacted areas using these rules:
 
@@ -189,7 +185,7 @@ Notes:
 - Your CI is responsible for mapping area names to commands or jobs
 
 
-## Using SelectiveCI in Your CI
+### Using SelectiveCI in Your CI
 
 Add this step to **any existing workflow**:
 
@@ -203,14 +199,14 @@ Add this step to **any existing workflow**:
 
 ---
 
-## Gating Your CI
+### Gating Your CI
 
 ```yaml
 if: needs.selectiveci.outputs.mode != 'skip'
 ```
 
 ---
-## Outputs (Phase-1 Stable Contract)
+### Outputs (Phase-1 Stable Contract)
 
 SelectiveCI exposes deterministic outputs:
 
@@ -233,7 +229,7 @@ SelectiveCI exposes deterministic outputs:
 
 ---
 
-### Reason Codes
+#### Reason Codes
 
 SelectiveCI emits machine-readable reason codes:
 
@@ -246,7 +242,7 @@ SelectiveCI emits machine-readable reason codes:
 These are intended for debugging, auditability, and CI visibility.
 
 --- 
-## Pattern Support
+### Pattern Support
 
 For safety and predictability, SelectiveCI supports **only** the following path pattern forms:
 
@@ -257,7 +253,7 @@ For safety and predictability, SelectiveCI supports **only** the following path 
 Other glob patterns are intentionally unsupported to keep decisions deterministic.
 
 
-## Safety and Security
+### Safety and Security
 
 SelectiveCI is designed to be safe by default.
 
@@ -268,7 +264,7 @@ SelectiveCI is designed to be safe by default.
 This ensures SelectiveCI never weakens CI guarantees.
 Note: SelectiveCI computes an internal risk level (`low`, `medium`, `high`) to guide safe escalation, but this value is not currently exposed as an output.
 
-## Design Principles
+### Design Principles
 
 - Deterministic
 - Safe-by-default
@@ -278,7 +274,7 @@ Note: SelectiveCI computes an internal risk level (`low`, `medium`, `high`) to g
 
 ---
 
-## Summary
+### Summary
 
 SelectiveCI is the **missing decision layer** in modern CI pipelines.
 
