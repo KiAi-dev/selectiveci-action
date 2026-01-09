@@ -1,6 +1,9 @@
 name: "SelectiveCI"
 description: "Safety-first CI optimization using selective execution"
-author: "SelectiveCI"
+author: "KiAi-dev"
+branding:
+  icon: "check-circle"
+  color: "blue"
 
 inputs:
   config-path:
