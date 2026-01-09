@@ -116,16 +116,16 @@ It only decides the CI mode and reports impacted areas.
 Your CI workflow is responsible for executing jobs based on this decision.
 
 ## Verified Example
-<h4>Skip</h4>
+<h4>Decision: Skip</h4>
 <p align="center">
   <img src="./assets/skip.png" alt="SelectiveCI Skip mode" width="50%" height="50%"/>
 </p>
-<h4>Selective</h4>
+<h4>Decision: Selective</h4>
 <p align="center">
   <img src="./assets/selective.png" alt="SelectiveCI Selective mode" width="50%" height="50%"/>
 </p>
 
-<h4>Selective</h4>
+<h4>Decision: Full</h4>
 <p align="center">
   <img src="./assets/full.png" alt="SelectiveCI Full mode" width="50%" height="50%"/>
 </p>
