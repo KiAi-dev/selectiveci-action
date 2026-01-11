@@ -285,25 +285,4 @@ You already have CI.  SelectiveCI just makes it smarter.
 
 MIT © SelectiveCI
 
-
 ---
-
-## Commercial & Enterprise Usage
-
-SelectiveCI is released under the **MIT License** and is free to use for:
-- Open-source projects
-- Individual developers
-- Small experiments
-
-Organizations usually reach out when they need:
-- CI cost optimization review
-- Production-grade rollout
-- Custom decision rules
-- Safe adoption across large repositories
-- SLA & ongoing support
-
-These offerings are provided as **commercial services** and do not change
-the open-source license.
-
-📩 Contact: selectiveci.dl@gmail.com  
-🔗 Landing page: [https://basalt-cheetah-972.notion.site/SelectiveCI-A-Decision-Layer-Before-CI-Runs-2e5ccfbc213780f490e6fa382681247d](https://basalt-cheetah-972.notion.site/SelectiveCI-A-Decision-Layer-Before-CI-Runs-2e5ccfbc213780f490e6fa382681247d) 
